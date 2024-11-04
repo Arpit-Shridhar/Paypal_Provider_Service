@@ -1,6 +1,7 @@
 package com.cpt.payments.controller;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -74,7 +75,7 @@ public class PaymentController {
 	}
 	
 	@GetMapping("/{orderId}")
-	public Order getOrder(@PathVariable String orderId) {
+	public ResponseEntity<Order> getOrder(@PathVariable String orderId) {
 		System.out.println("getOrder request received for orderId:" + orderId);
 		
 		OrderDTO responseDTO = paymentService.getOrder(orderId);
@@ -83,8 +84,6 @@ public class PaymentController {
 		Order order = modelMapper.map(responseDTO, Order.class);
 		System.out.println("Converted service response to POJO & returning order:" + order);
 		
-		return order;
+		return ResponseEntity.ok(order);
 	}
-	
-
 }

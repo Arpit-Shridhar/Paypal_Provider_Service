@@ -43,6 +43,10 @@ public class TokenService {
 		//TODO, this static caching is for temporary purpose, 
 		//we will implement final solution in redis, which deals with expiry aswell.
 		
+		//TODO, call Redis to get accessToken. And if available, return.
+		// 50 threads are trying to get accessToken,
+		
+		
 		if (accessToken != null) {
 			System.out.println("Returning already available accessToken");
 			return accessToken;
@@ -83,6 +87,8 @@ public class TokenService {
 		System.out.println("TokenResponse as Java Object responseAsObj: " + responseAsObj);
 		
 		accessToken = responseAsObj.getAccessToken();
+		
+		//TODO, Set this received accessToken in Redis.
 		
 		System.out.println("Returning accessToken: " + accessToken);
 		
